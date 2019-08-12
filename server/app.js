@@ -3,12 +3,14 @@ const express = require('express')
 const graphqlHTTP = require('express-graphql')
 const schema = require('./schema/schema')
 const mongoose = require('mongoose')
+const cors = require ('cors')
 
 const app = express()
 
 mongoose.connect('mongodb://modularizer:q1w2e3r4@ds245687.mlab.com:45687/node-modularizer', { useNewUrlParser: true })
 mongoose.connection.once('open', () => console.log('Connected to Mlab'))
 
+app.use(cors())
 app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true
